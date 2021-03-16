@@ -5,7 +5,7 @@ $("#currentDay").text(today.format("dddd, MMM Do, YYYY"));
 $(document).ready(function() {
 
     // listen for save button clicks
-    $("#save").on("click", function() {
+    $(".saveBtn").on("click", function() {
       // get values for time and description of schedule
       var text = $(this).siblings(".description").val();
       var time = $(this).parent().attr("id");
@@ -19,41 +19,41 @@ $(document).ready(function() {
     });
 
     function timeTracker () {
-        var currentTime = moment().hour(); 
+        let currentTime = moment().format('LT'); 
 
-    $(".description_text").each(function () {
+    $(".description").each(function () {
         var hourBlock = parseInt($(this).attr("id").split("hour")[1]);
 
         if (hourBlock < currenttTime) {
-            $(this).removeClass("future");
-            $(this).removeClass("present");
-            $(this).addClass("past");
+            $(".description").removeClass("future");
+            $(".description").removeClass("present");
+            $(".description").addClass("past");
         }
 
         else if (hourBlock === currentTime) {
-            $(this).removeClass("past");
-            $(this).removeClass("future");
-            $(this).addClass("present");
+            $(".description").removeClass("past");
+            $(".description").removeClass("future");
+            $(".description").addClass("present");
         }
 
         else {
-            $(this).removeClass("past");
-            $(this).removeClass("present");
-            $(this).addClass("future");
+            $(".description").removeClass("past");
+            $(".description").removeClass("present");
+            $(".description").addClass("future");
         }
     });
     }
 
-    $("#time1 .description").val(localStorage.getItem("time1"));
-    $("#time2 .description").val(localStorage.getItem("time2"));
-    $("#time3 .description").val(localStorage.getItem("time3"));
-    $("#time4 .description").val(localStorage.getItem("time4"));
-    $("#time5 .description").val(localStorage.getItem("time5"));
-    $("#time6 .description").val(localStorage.getItem("time6"));
-    $("#time7 .description").val(localStorage.getItem("time7"));
-    $("#time8 .description").val(localStorage.getItem("time8"));
-    $("#time9 .description").val(localStorage.getItem("time9"));
-    $("#time0 .description").val(localStorage.getItem("time0"));
+    $("#hour8 .description").val(localStorage.getItem("time1"));
+    $("#hour9 .description").val(localStorage.getItem("time2"));
+    $("#hour10 .description").val(localStorage.getItem("time3"));
+    $("#hour11 .description").val(localStorage.getItem("time4"));
+    $("#hour12 .description").val(localStorage.getItem("time5"));
+    $("#hour13.description").val(localStorage.getItem("time6"));
+    $("#hour14.description").val(localStorage.getItem("time7"));
+    $("#hour15 .description").val(localStorage.getItem("time8"));
+    $("#hour16 .description").val(localStorage.getItem("time9"));
+    $("#hour17 .description").val(localStorage.getItem("time0"));
 
     timeTracker();
 }); 
