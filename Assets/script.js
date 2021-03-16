@@ -16,24 +16,28 @@ $(document).ready(function() {
       
     });
     
+    //a time tracker is needed to compare current time against future and past times
+    //to satisfy the color requriments of the blocks based on the time
     function timeTracker () {
       
     $(".description").each(function () {
 
+        //parsing off numeric value of the id in each time block to get a comparative value for below
         var hourBlock = parseInt($(".time-block").attr("id").split("hour")[1]);
 
+        //adding a class if the value of the hour block is less than the current time
         if (hourBlock < currentTime) {
             $(".description").removeClass("future");
             $(".description").removeClass("present");
             $(".description").addClass("past");
         }
-
+        //if the hour block and current time hour values are equal, then it is present time
         else if (hourBlock === currentTime) {
             $(".description").removeClass("past");
             $(".description").removeClass("future");
             $(".description").addClass("present");
         }
-
+        //any other circumstance (i.e. an hour block value greater thant the current time) will indicate a future time
         else {
             $(".description").removeClass("past");
             $(".description").removeClass("present");
@@ -41,7 +45,7 @@ $(document).ready(function() {
         }
     });
     }
-
+//code to fetch local storage items
     $("#hour8 .description").val(localStorage.getItem("hour8"));
     $("#hour9 .description").val(localStorage.getItem("hour9"));
     $("#hour10 .description").val(localStorage.getItem("hour10"));
