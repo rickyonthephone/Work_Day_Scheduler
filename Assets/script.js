@@ -2,6 +2,11 @@ var today = moment();
 $("#currentDay").text(today.format("dddd, MMM Do, YYYY"));    
 var currentTime = moment();
 $("#currentTime").text(currentTime.format('LT'));
+currentTime = currentTime.format('HH');
+var timeCheckerID = setInterval(function(){
+    $("#currentTime").text(moment().format('HH:mm:ss'));
+
+}, 1000)
 
 $(document).ready(function() {
 
@@ -20,28 +25,33 @@ $(document).ready(function() {
     //to satisfy the color requriments of the blocks based on the time
     function timeTracker () {
       
-    $(".description").each(function () {
+        //element is the specific HTML element when we query 
+    $(".description").each(function (index, element) {
 
         //parsing off numeric value of the id in each time block to get a comparative value for below
-        var hourBlock = parseInt($(".time-block").attr("id").split("hour")[1]);
-
+        var parentElement = $(element).parent();
+        
+        //the index of an array starts at 0, we're looking at the second index because ["", 8] is the array we get
+        var hourBlock = parseInt(parentElement.attr("id").split("hour")[1]);
+        console.log(hourBlock)
+        console.log(currentTime)
         //adding a class if the value of the hour block is less than the current time
         if (hourBlock < currentTime) {
-            $(".description").removeClass("future");
-            $(".description").removeClass("present");
-            $(".description").addClass("past");
+            $(element).removeClass("future");
+            $(element).removeClass("present");
+            $(element).addClass("past");
         }
         //if the hour block and current time hour values are equal, then it is present time
         else if (hourBlock === currentTime) {
-            $(".description").removeClass("past");
-            $(".description").removeClass("future");
-            $(".description").addClass("present");
+            $(element).removeClass("past");
+            $(element).removeClass("future");
+            $(element).addClass("present");
         }
         //any other circumstance (i.e. an hour block value greater thant the current time) will indicate a future time
         else {
-            $(".description").removeClass("past");
-            $(".description").removeClass("present");
-            $(".description").addClass("future");
+            $(element).removeClass("past");
+            $(element).removeClass("present");
+            $(element).addClass("future");
         }
     });
     }
