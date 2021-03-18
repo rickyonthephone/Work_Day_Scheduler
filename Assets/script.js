@@ -42,7 +42,7 @@ $(document).ready(function() {
             $(element).addClass("past");
         }
         //if the hour block and current time hour values are equal, then it is present time
-        else if (hourBlock === currentTime) {
+        else if (hourBlock == currentTime) {
             $(element).removeClass("past");
             $(element).removeClass("future");
             $(element).addClass("present");
