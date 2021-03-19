@@ -1,21 +1,24 @@
 //Date variable for jumbotron date
 var today = moment();
 $("#currentDay").text(today.format("dddd, MMM Do, YYYY"));  
+
 //Added a time variable in the jumbotron to use as a comparison for the functions below.  
 //currenTime is hidden with CSS because I'm using military time in this format, the HTML uses both military time 
 //in some of the div IDs but shows standard time in the blocks on the page. I felt like having the military time 
 //showing at the top but the standard time in the blocks could confuse users.
 var currentTime = moment();
 $("#currentTime").text(currentTime.format('LT'));
+
 //also need the just the hour value for the timeTracker function below.
 currentTime = currentTime.format('HH');
+
 //variable to update the current time every second to keep the local time current throughout the day.  
 var timeCheckerID = setInterval(function(){
     $("#currentTime").text(moment().format('HH:mm:ss'));
 
 }, 1000)
 
-//adding functionality to the page, wrap document
+//adding functionality to the page, jquery wrap document
 $(document).ready(function() {
 
     // activate save to local storage on click
@@ -35,9 +38,8 @@ $(document).ready(function() {
     function timeTracker () {
       
     //"element" is the specific HTML element when we query, for the .each method there will be 10 target elements, index 0-9
-    //note to self: .each in jquery similar to a for loop in javascript, in this case we are gathering indexes and targeted elements for 
-    //each text area in order to color them appropriately based on time using the ".description" class.
-
+    //note to self: .each in jquery similar to a for loop in javascript, in this case we are gathering indexes and targeted element areas for 
+    //in order to color them appropriately based on time using the ".description" class box (the aread to be colored red, green, or gray)
     $(".description").each(function (index, element) {
 
         //not sure but could maybe use somethig like:
@@ -45,8 +47,8 @@ $(document).ready(function() {
         //     textArea = element[index];   
         // }
         
-        //must parse off numeric value of the id in each .time-block div to get a comparative value for below
-        //note to self: the index of an array starts at 0, we're looking at the second index (i.e. 1) because ["", 8] is the array we get from the split
+        //must parse off numeric value of the id in each .time-block div to get a comparative value to compare with the currentTime 'HH' format listed at the top.
+        //note to self: the index of an array starts at 0, we're looking at the second index (i.e. 1) because ["", 8], ["", 9], etc... are the arrays we get from the splits
         var parentElement = $(element).parent();
         var timeBlock = parseInt(parentElement.attr("id").split("hour")[1]);
 
