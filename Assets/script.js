@@ -1,13 +1,17 @@
+//Variable for jumbotron date
 var today = moment();
-$("#currentDay").text(today.format("dddd, MMM Do, YYYY"));    
+$("#currentDay").text(today.format("dddd, MMM Do, YYYY"));  
+//Added a time variable in the jumbotron to display time and to use as a comparison for the functions below.  
 var currentTime = moment();
 $("#currentTime").text(currentTime.format('LT'));
 currentTime = currentTime.format('HH');
+//variable to update the current time every second to keep the local time current.  
 var timeCheckerID = setInterval(function(){
     $("#currentTime").text(moment().format('HH:mm:ss'));
 
 }, 1000)
 
+//
 $(document).ready(function() {
 
     // activate save to local storage on click
@@ -21,11 +25,11 @@ $(document).ready(function() {
       
     });
     
-    //a time tracker is needed to compare current time against future and past times
-    //to satisfy the color requriments of the blocks based on the time
+    //A time tracker is needed to compare current time against future and past times
+    //to satisfy the color requriments of the blocks based on the current time
     function timeTracker () {
       
-        //element is the specific HTML element when we query 
+    //element is the specific HTML element when we query 
     $(".description").each(function (index, element) {
 
         //parsing off numeric value of the id in each time block to get a comparative value for below
