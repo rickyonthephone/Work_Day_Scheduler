@@ -1,24 +1,29 @@
-//Variable for jumbotron date
+//Date variable for jumbotron date
 var today = moment();
 $("#currentDay").text(today.format("dddd, MMM Do, YYYY"));  
-//Added a time variable in the jumbotron to display time and to use as a comparison for the functions below.  
+//Added a time variable in the jumbotron to use as a comparison for the functions below.  
+//currenTime is hidden with CSS because I'm using military time in this format, the HTML uses both military time 
+//in some of the div IDs but shows standard time in the blocks on the page. I felt like having the military time 
+//showing at the top but the standard time in the blocks could confuse users.
 var currentTime = moment();
 $("#currentTime").text(currentTime.format('LT'));
+//also need the just the hour value for the timeTracker function below.
 currentTime = currentTime.format('HH');
-//variable to update the current time every second to keep the local time current.  
+//variable to update the current time every second to keep the local time current throughout the day.  
 var timeCheckerID = setInterval(function(){
     $("#currentTime").text(moment().format('HH:mm:ss'));
 
 }, 1000)
 
-//
+//adding functionality to the page, wrap document
 $(document).ready(function() {
 
     // activate save to local storage on click
     $(".saveBtn").on("click", function() {
-      // get values for time block and description in the schedule
-      var text = $(this).siblings(".description").val();
-      var time = $(this).parent().attr("id");
+
+    // get values for time block and description in the schedule
+      var text = $(".saveBtn").siblings(".description").val();
+      var time = $(".saveBtn").parent().attr("id");
   
       //save the time block and description values in localStorage
       localStorage.setItem(time, text);
@@ -29,29 +34,36 @@ $(document).ready(function() {
     //to satisfy the color requriments of the blocks based on the current time
     function timeTracker () {
       
-    //element is the specific HTML element when we query 
+    //"element" is the specific HTML element when we query, for the .each method there will be 10 target elements, index 0-9
+    //note to self: .each in jquery similar to a for loop in javascript, in this case we are gathering indexes and targeted elements for 
+    //each text area in order to color them appropriately based on time using the ".description" class.
+
     $(".description").each(function (index, element) {
 
-        //parsing off numeric value of the id in each time block to get a comparative value for below
-        var parentElement = $(element).parent();
+        //could maybe use somethig like:
+        // for (i = 0; i < element.length; i++) {
+        //     textArea = element[index];   
+        // }
         
-        //the index of an array starts at 0, we're looking at the second index because ["", 8] is the array we get
-        var hourBlock = parseInt(parentElement.attr("id").split("hour")[1]);
-        console.log(hourBlock)
-        console.log(currentTime)
-        //adding a class if the value of the hour block is less than the current time
-        if (hourBlock < currentTime) {
+        //must parse off numeric value of the id in each .time-block div to get a comparative value for below
+        //note to self: the index of an array starts at 0, we're looking at the second index (i.e. 1) because ["", 8] is the array we get from the split
+        var parentElement = $(element).parent();
+        var timeBlock = parseInt(parentElement.attr("id").split("hour")[1]);
+
+        //adding/removing classes based on the value of the time block compared to the current time
+        //if timeBlock is less than currentTime, the class of "past" is added
+        if (timeBlock < currentTime) {
             $(element).removeClass("future");
             $(element).removeClass("present");
             $(element).addClass("past");
         }
-        //if the hour block and current time hour values are equal, then it is present time
-        else if (hourBlock == currentTime) {
+        //if the time block and current time hour values are equal, then class of "present" is added
+        else if (timeBlock == currentTime) {
             $(element).removeClass("past");
             $(element).removeClass("future");
             $(element).addClass("present");
         }
-        //any other circumstance (i.e. an hour block value greater thant the current time) will indicate a future time
+        //any other circumstance (i.e. an time block value greater than the current time) will indicate a future time
         else {
             $(element).removeClass("past");
             $(element).removeClass("present");
@@ -59,7 +71,7 @@ $(document).ready(function() {
         }
     });
     }
-//code to fetch local storage items
+//code to get local storage items
     $("#hour8 .description").val(localStorage.getItem("hour8"));
     $("#hour9 .description").val(localStorage.getItem("hour9"));
     $("#hour10 .description").val(localStorage.getItem("hour10"));
@@ -73,6 +85,3 @@ $(document).ready(function() {
 
     timeTracker();
 }); 
-
-
-
