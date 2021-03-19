@@ -40,7 +40,7 @@ $(document).ready(function() {
 
     $(".description").each(function (index, element) {
 
-        //could maybe use somethig like:
+        //not sure but could maybe use somethig like:
         // for (i = 0; i < element.length; i++) {
         //     textArea = element[index];   
         // }
