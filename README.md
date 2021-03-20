@@ -4,9 +4,9 @@
 
 Create a simple calendar application that allows a user to save events for each hour of the day by modifying starter code. The app is to run in the browser and should feature dynamically updated HTML and CSS powered by jQuery as well as current date and time using Moment.js.
 
-Github code:
+Github code:  https://github.com/rickyonthephone/Work_Day_Scheduler
 
-Gitpages app deployment:
+Gitpages app deployment: https://rickyonthephone.github.io/Work_Day_Scheduler/
 
 Screenshot:
 
