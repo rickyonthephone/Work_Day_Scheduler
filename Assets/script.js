@@ -32,48 +32,8 @@ $(document).ready(function() {
       localStorage.setItem(time, text);
       
     });
-    
-    //A time tracker is needed to compare current time against future and past times
-    //to satisfy the color requriments of the blocks based on the current time
-    function timeTracker () {
-      
-    //"element" is the specific HTML element when we query, for the .each method there will be 10 target elements, index 0-9
-    //note to self: .each in jquery similar to a for loop in javascript, in this case we are gathering indexes and targeted element areas for 
-    //in order to color them appropriately based on time using the ".description" class box (the aread to be colored red, green, or gray)
-    $(".description").each(function (index, element) {
 
-        //not sure but could maybe use somethig like:
-        // for (i = 0; i < element.length; i++) {
-        //     textArea = element[index];   
-        // }
-        
-        //must parse off numeric value of the id in each .time-block div to get a comparative value to compare with the currentTime 'HH' format listed at the top.
-        //note to self: the index of an array starts at 0, we're looking at the second index (i.e. 1) because ["", 8], ["", 9], etc... are the arrays we get from the splits
-        var parentElement = $(element).parent();
-        var timeBlock = parseInt(parentElement.attr("id").split("hour")[1]);
-
-        //adding/removing classes based on the value of the time block compared to the current time
-        //if timeBlock is less than currentTime, the class of "past" is added
-        if (timeBlock < currentTime) {
-            $(element).removeClass("future");
-            $(element).removeClass("present");
-            $(element).addClass("past");
-        }
-        //if the time block and current time hour values are equal, then class of "present" is added
-        else if (timeBlock == currentTime) {
-            $(element).removeClass("past");
-            $(element).removeClass("future");
-            $(element).addClass("present");
-        }
-        //any other circumstance (i.e. an time block value greater than the current time) will indicate a future time
-        else {
-            $(element).removeClass("past");
-            $(element).removeClass("present");
-            $(element).addClass("future");
-        }
-    });
-    }
-//code to get local storage items
+    //code to get local storage items
     $("#hour8 .description").val(localStorage.getItem("hour8"));
     $("#hour9 .description").val(localStorage.getItem("hour9"));
     $("#hour10 .description").val(localStorage.getItem("hour10"));
@@ -84,6 +44,49 @@ $(document).ready(function() {
     $("#hour15 .description").val(localStorage.getItem("hour15"));
     $("#hour16 .description").val(localStorage.getItem("hour16"));
     $("#hour17 .description").val(localStorage.getItem("hour17"));
+    
+    //A time tracker is needed to compare current time against future and past times
+    //to satisfy the color requriments of the blocks based on the current time
+    function timeTracker () {
+      
+    //"element" is the specific HTML element when we query, for the .each method there will be 10 target elements, index 0-9
+    //note to self: .each in jquery similar to a for loop in javascript, in this case we are gathering indexes and targeted element areas for 
+    //in order to color them appropriately based on time using the ".description" class box (the aread to be colored red, green, or gray)
+    $(".description").each(function (index, element) {
+        //not sure but could maybe use somethig like:
+        // for (i = 0; i < element.length; i++) {
+        //     getItem = (element[index])  
+        // };
+        
+        //must parse off numeric value of the id in each .time-block div to get a comparative value to compare with the currentTime 'HH' format listed at the top.
+        //note to self: the index of an array starts at 0, we're looking at the second index (i.e. 1) because ["", 8], ["", 9], etc... are the arrays we get from the splits
+        var parentElement = $(element).parent();
+        var timeBlock = parseInt(parentElement.attr("id").split("hour")[1]);
+
+        //adding/removing classes based on the value of the time block compared to the current time
+        //if timeBlock is less than currentTime, the class of "past" is added
+        if (timeBlock < currentTime) {
+            $(element).addClass("past");
+            $(element).removeClass("future");
+            $(element).removeClass("present");
+
+        }
+        //if the time block and current time hour values are equal, then class of "present" is added
+        else if (timeBlock == currentTime) {
+            $(element).addClass("present");
+            $(element).removeClass("past");
+            $(element).removeClass("future");
+           
+        }
+        //any other circumstance (i.e. an time block value greater than the current time) will indicate a future time
+        else {
+            $(element).addClass("future");
+            $(element).removeClass("past");
+            $(element).removeClass("present");
+        
+        }
+    });
+    }
 
     timeTracker();
 }); 
