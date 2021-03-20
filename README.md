@@ -8,7 +8,8 @@ Github code:  https://github.com/rickyonthephone/Work_Day_Scheduler
 
 Gitpages app deployment: https://rickyonthephone.github.io/Work_Day_Scheduler/
 
-Screenshot:
+Screenshot: ![screenshot](https://github.com/rickyonthephone/Work_Day_Scheduler/blob/master/Assets/Screen%20Shot%202021-03-20%20at%2010.32.04%20AM.png)
+
 
 
 ## User Story
